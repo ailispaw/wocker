@@ -26,13 +26,9 @@ sudo mkdir -p $BIN
 sudo wget -q -O ${BIN}/wocker https://raw.githubusercontent.com/wckr/wocker-cli/master/wocker
 sudo chmod +x ${BIN}/wocker
 
+sudo sed -i 's/-p 80:80 -p 3306:3306//g' ${BIN}/wocker
+
 #
 # Pull the Wocker image & create the first container
 #
 docker pull wocker/wocker:latest
-ID=$(docker ps -q -a -f name=wocker)
-if [ -z "$ID" ]; then
-  wocker run --name wocker
-else
-  wocker start wocker
-fi
